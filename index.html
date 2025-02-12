@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algerian Uni Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="controls">
+        <button onclick="toggleDarkMode()" id="darkModeBtn">🌙</button>
+    </div>
+
+    <!-- Intro Section -->
+    <header>
+        <h1>🇩🇿 Algerian Uni Calculator</h1>
+        <p>👋 Hello! I'm AYOUB SADOK. Calculate your semester average below!</p>
+    </header>
+
+    <!-- Calculator -->
+    <div class="container">
+        <div id="modules"></div>
+        <button onclick="addModule()">➕ Add Module</button>
+        <button onclick="calculate()">📊 Calculate Average</button>
+        <div id="result"></div>
+    </div>
+
+    <!-- Contact Footer -->
+    <footer>
+        <p>📧 Contact me: <a href="mailto:ayoubsadok202@gmail.com">ayoubsadok202@gmail.com</a> | 
+           <a href="https://www.facebook.com/ayoub.sadok202">Facebook</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!-- Add this inside the <body> -->
+<div class="social-share">
+  <button onclick="shareOnFacebook()">Share on Facebook</button>
+  <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+</div>
+
+<script>
+// Social Sharing Functions
+function shareOnFacebook() {
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+
+function shareOnWhatsApp() {
+  const text = encodeURIComponent("Calculate your Algerian Uni average here: ");
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://wa.me/?text=${text}${url}`, '_blank');
+}
+</script>
