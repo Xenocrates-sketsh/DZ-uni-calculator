@@ -11,8 +11,8 @@ function addModule() {
     const module = document.createElement('div');
     module.className = 'module';
     module.innerHTML = `
-        <input type="text" placeholder="Module Name">
-        <input type="number" placeholder="TD Mark" min="0" max="20" step="0.1">
+        <input type="text" placeholder="Module Name" required>
+        <input type="number" placeholder="TD Mark" min="0" max="20" step="0.1" required>
         <div class="module-options">
             <select>
                 <option value="40">40% TD / 60% Exam</option>
@@ -21,18 +21,11 @@ function addModule() {
             <label>
                 <input type="checkbox" onchange="toggleExam(this)"> No Exam
             </label>
-            <input type="number" placeholder="Coef" value="1" min="1">
+            <input type="number" placeholder="Coef" value="1" min="1" required>
         </div>
-        <input type="number" placeholder="Exam Mark" min="0" max="20" step="0.1" class="exam-input">
+        <input type="number" placeholder="Exam Mark" min="0" max="20" step="0.1" class="exam-input" required>
     `;
-    document.getElementById('modules').appendChild(module);
-}
-
-// Toggle Exam Field
-function toggleExam(checkbox) {
-    const examInput = checkbox.closest('.module').querySelector('.exam-input');
-    examInput.disabled = checkbox.checked;
-    examInput.value = checkbox.checked ? '' : ''; // Clear exam mark if no exam
+    document.getElementById('modules').appendChild (module);
 }
 
 // Calculate Average (Algerian Formula)
@@ -42,30 +35,29 @@ function calculate() {
 
     modules.forEach(module => {
         const tdMark = parseFloat(module.children[1].value) || 0;
-        const split = parseInt(module.querySelector('select').value);
         const examMark = parseFloat(module.querySelector('.exam-input').value) || 0;
-        const hasExam = !module.querySelector('input[type="checkbox"]').checked;
-        const coef = parseFloat(module.querySelector('input[type="number"][placeholder="Coef"]').value) || 1;
+        const coef = parseFloat(module.querySelector('input[type="number"]:last-child').value) || 1;
 
-        let moduleAvg;
-        if (hasExam) {
-            moduleAvg = (tdMark * split/100) + (examMark * (100 - split)/100);
-        } else {
-            moduleAvg = tdMark; // No exam = TD mark is 100%
+        if (tdMark && examMark) {
+            total += (tdMark * 0.4 + examMark * 0.6) * coef;
+        } else if (tdMark) {
+            total += tdMark * coef; // If no exam, consider only TD
         }
-
-        total += moduleAvg * coef;
         totalCoef += coef;
     });
 
-    const avg = total / totalCoef;
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = `
-        <h3>Semester Average:</h3>
-        <div style="font-size:24px;color:${avg >= 10 ? 'var(--primary)' : 'red'}">${avg.toFixed(2)}/20</div>
-        <p>${avg >= 10 ? '✅ Pass!' : '❌ Fail!'}</p>
-    `;
+    const average = total / totalCoef;
+    document.getElementById('result').innerText = `Your Average: ${average.toFixed(2)}`;
+    document.getElementById('result').className = average >= 10 ? 'pass' : 'fail';
 }
 
-// Initialize first module
-window.onload = addModule;
+// Share on Social Media
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+
+function shareOnWhatsApp() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://api.whatsapp.com/send?text=${url}`, '_blank');
+        }
