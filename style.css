@@ -1,27 +1,28 @@
 :root {
     --primary: #8A2BE2; /* Purple */
-    --bg: white;
+    --secondary: #FF6F61; /* Coral */
+    --bg: #f4f4f4; /* Light background */
     --text: #333;
+    --card-bg: #fff; /* Card background */
+    --border: #ddd; /* Border color */
 }
 
 [data-theme="dark"] {
     --primary: #BB86FC;
+    --secondary: #FF6F61;
     --bg: #121212;
     --text: #fff;
+    --card-bg: #1E1E1E; /* Dark card background */
+    --border: #444; /* Dark border */
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif; /* Modern font */
     background: var(--bg);
     color: var(--text);
     transition: 0.3s;
-    padding: 15px;
+    padding: 20px;
     margin: 0;
-}
-
-.controls {
-    text-align: right;
-    margin-bottom: 20px;
 }
 
 header {
@@ -31,20 +32,15 @@ header {
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .module {
-    background: rgba(0,0,0,0.05);
+    background: var(--card-bg);
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 10px;
-}
-
-.module input, .module select {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 5px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 button {
@@ -56,6 +52,11 @@ button {
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: var(--secondary); /* Change color on hover */
 }
 
 footer {
@@ -67,16 +68,31 @@ footer {
     border-radius: 10px;
 }
 
-footer a {
-    color: white;
-    text-decoration: underline;
-}
-
 #result {
     margin-top: 20px;
     padding: 15px;
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
     font-weight: bold;
+    transition: background 0.3s;
 }
+
+#result.pass {
+    background: rgba(76, 175, 80, 0.2); /* Green for pass */
+}
+
+#result.fail {
+    background: rgba(244, 67, 54, 0.2); /* Red for fail */
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.social-share {
+    text-align: center;
+    margin-top: 20px;
+    }
