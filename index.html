@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +26,12 @@
         <div id="result"></div>
     </div>
 
+    <!-- Social Share -->
+    <div class="social-share">
+        <button onclick="shareOnFacebook()">Share on Facebook</button>
+        <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+    </div>
+
     <!-- Contact Footer -->
     <footer>
         <p>📧 Contact me: <a href="mailto:ayoubsadok202@gmail.com">ayoubsadok202@gmail.com</a> | 
@@ -35,22 +41,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-<!-- Add this inside the <body> -->
-<div class="social-share">
-  <button onclick="shareOnFacebook()">Share on Facebook</button>
-  <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
-</div>
-
-<script>
-// Social Sharing Functions
-function shareOnFacebook() {
-  const url = encodeURIComponent(window.location.href);
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-}
-
-function shareOnWhatsApp() {
-  const text = encodeURIComponent("Calculate your Algerian Uni average here: ");
-  const url = encodeURIComponent(window.location.href);
-  window.open(`https://wa.me/?text=${text}${url}`, '_blank');
-}
-</script>
