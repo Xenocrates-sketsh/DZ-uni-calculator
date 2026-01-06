@@ -1,10 +1,26 @@
 :root {
     --primary: #8A2BE2; /* Purple */
+    --primary-contrast: #ffffff;
     --secondary: #FF6F61; /* Coral */
+    --hover: #ff8a73;
     --bg: #f4f4f4; /* Light background */
     --text: #333;
     --card-bg: #fff; /* Card background */
     --border: #ddd; /* Border color */
+    --focus-ring: rgba(138, 43, 226, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: #BB86FC;
+        --primary-contrast: #000;
+        --secondary: #FF6F61;
+        --bg: #121212;
+        --text: #fff;
+        --card-bg: #1E1E1E;
+        --border: #444;
+        --focus-ring: rgba(187, 134, 252, 0.18);
+    }
 }
 
 [data-theme="dark"] {
@@ -14,49 +30,34 @@
     --text: #fff;
     --card-bg: #1E1E1E; /* Dark card background */
     --border: #444; /* Dark border */
+    --focus-ring: rgba(187, 134, 252, 0.18);
+}
+
+/* Page container */
+.app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 body {
     font-family: 'Poppins', sans-serif; /* Modern font */
     background: var(--bg);
     color: var(--text);
-    transition: 0.3s;
+    transition: background 0.3s, color 0.3s;
     padding: 20px;
     margin: 0;
 }
 
+/* Header / Footer */
 header {
     text-align: center;
     background: var(--primary);
-    color: white;
+    color: var(--primary-contrast);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.module {
-    background: var(--card-bg);
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-button {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    margin: 5px 0;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: var(--secondary); /* Change color on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 footer {
@@ -64,35 +65,109 @@ footer {
     margin-top: 30px;
     padding: 15px;
     background: var(--primary);
-    color: white;
+    color: var(--primary-contrast);
     border-radius: 10px;
 }
 
+/* Modules / cards */
+.module {
+    background: var(--card-bg);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border);
+}
+
+/* Buttons */
+button {
+    background: var(--primary);
+    color: var(--primary-contrast);
+    border: none;
+    padding: 12px;
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.06s, box-shadow 0.18s;
+    -webkit-tap-highlight-color: transparent;
+    text-align: center;
+}
+
+/* Hover / Active / Focus */
+button:hover {
+    background: var(--secondary); /* Change color on hover */
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:focus,
+button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+    border-radius: 6px;
+}
+
+/* Result display */
 #result {
     margin-top: 20px;
     padding: 15px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.04);
     border-radius: 10px;
     text-align: center;
     font-weight: bold;
-    transition: background 0.3s;
+    transition: background 0.3s, border-color 0.3s;
+    border: 1px solid var(--border);
+    color: var(--text);
 }
 
 #result.pass {
-    background: rgba(76, 175, 80, 0.2); /* Green for pass */
+    background: rgba(76, 175, 80, 0.08); /* Green for pass */
+    border-color: rgba(76, 175, 80, 0.25);
 }
 
 #result.fail {
-    background: rgba(244, 67, 54, 0.2); /* Red for fail */
+    background: rgba(244, 67, 54, 0.06); /* Red for fail */
+    border-color: rgba(244, 67, 54, 0.25);
 }
 
+/* Controls / layout responsiveness */
 .controls {
     display: flex;
     justify-content: flex-end;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
+/* Make controls stack on small screens */
+@media (max-width: 480px) {
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .app {
+        padding: 12px;
+    }
+}
+
+/* Social share */
 .social-share {
     text-align: center;
     margin-top: 20px;
-    }
+}
+
+/* Utility: screen-reader-only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
